@@ -5,6 +5,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import Home from './src/containers/Home';
 import Edit from './src/containers/Edit';
+import Test from './src/containers/Test';
 
 const Stack = createStackNavigator();
 
@@ -19,6 +20,10 @@ export default function App() {
       <Stack.Screen
           name="Edit"
           component={Edit}
+        />
+      <Stack.Screen
+          name="Test"
+          component={Test}
         />
       </Stack.Navigator>
     </NavigationContainer>

@@ -6,14 +6,19 @@ export default class Home extends Component {
         super(props);
         this.state = {
           nombre: "",
-          numero: ""
+          numero: "$ "
         };
     }
     changeNumbers = (number) => {
         this.setState({
-            numero: ("$" + {text}) 
+            numero: number
         })
     }
+
+/*
+onChange={(number) => this.setState({ numero: number })}
+*/
+
     render(){
         return(
             <SafeAreaView style={styles.container}>
@@ -22,7 +27,7 @@ export default class Home extends Component {
                         <TextInput value={this.state.nombre} onChange={(text) => this.setState({ nombre: text })} placeholder="Nombre Cuenta" style={styles.input}/>
                         <View style={styles.debeHaber}>
                             <View style={styles.debe}>
-                                <TextInput value={this.state.numero} placeholder="1.- $$" onChange={(number) => this.setState({ numero: number })} keyboardType='number-pad' style={styles.renglon}></TextInput>
+                                <TextInput value={this.state.numero} placeholder="1.- $$" onChangeText={(number) => this.changeNumbers(number)} keyboardType='number-pad' style={styles.renglon}></TextInput>
                                 <TextInput keyboardType='number-pad' style={styles.renglon}></TextInput>
                                 <TextInput keyboardType='number-pad' style={styles.renglon}></TextInput>
                                 <TextInput keyboardType='number-pad' style={styles.renglon}></TextInput>

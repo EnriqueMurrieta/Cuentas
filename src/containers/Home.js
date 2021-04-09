@@ -6,7 +6,7 @@ export default class Home extends Component {
         return(
             <View>
                 <TouchableOpacity>
-                    <Button title="Nuevo proyecto" onPress={() => this.props.navigation.navigate('Edit')}/>
+                    <Button title="Nuevo proyecto" onPress={() => this.props.navigation.navigate('Test')}/>
                 </TouchableOpacity>
                 <Text></Text>
             </View>
