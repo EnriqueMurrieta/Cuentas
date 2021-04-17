@@ -1,35 +1,54 @@
 import React from 'react';
 import { StyleSheet, Text, View, SafeAreaView, ScrollView, StatusBar, Image, FlatList, TouchableOpacity, Button, TextInput } from 'react-native';
-
+/*
 let sum = 0;
 let dato = [];
+*/
+
+
 
 export default function Test() {
     
     const [number, onChangeNumber] = React.useState([]);
     const [text, onChangeText] = React.useState("");
-    /*const [sum, onSumChange] = React.useState();*/
+    const [total, onTotalChange] = React.useState();
 
 /*
 INSIDE ADDNUMBER CALL THE FUNCTION THAT SUMS THE ENTIRE STATE ARRAY
 */ 
-    const totalSum = (entry, id, dato) => {
-        /*console.log(newArr[0])*/
-        dato.forEach(element => {
+    const totalSum = (newArr) => {
+        /*sum = newArr[0]
+        console.log(sum)*/
+        let temp = 0
+        parseInt(temp)
+        let newSum = 0
+        parseInt(newSum)
+        newArr.forEach(element => {
             {element == undefined ? 
-                console.log(sum)
-            : (
-                sum = sum + element,
-                console.log(sum)    
+                null
+             : (
+                newSum = parseInt(element),
+                temp += newSum
                 )
             }
         })
-        /*console.log(sum);*/
+        onTotalChange(temp)
+        /*
+        sum = parseInt(temp)
+        console.log(parseInt(sum))
+        */
+        /*const resultado = newArr.reduce((acc, el) => acc + el, 0)
+        console.log(resultado)*/
+        /*const reducer = (accumulator, currentValue) => accumulator + currentValue;
+        newArr.*/
     }
 
-    const addNumber = async (entry, id) => {
+    const addNumber = (entry, id) => {
         let newArr = [...number];
-        const send = "$ " + entry
+        newArr[id] = entry
+        /*console.log(newArr[id])*/
+        onChangeNumber(newArr)
+        /*const send = "$ " + entry
         {newArr[id] == undefined ? (
                 newArr[id] = send,
                 dato[id] = entry, 
@@ -39,8 +58,8 @@ INSIDE ADDNUMBER CALL THE FUNCTION THAT SUMS THE ENTIRE STATE ARRAY
                     dato[id] = entry, 
                     onChangeNumber(newArr) 
                 )
-        }
-        totalSum(entry, id, dato);
+        }*/
+        totalSum(newArr);
     }
     return(
         <SafeAreaView style={styles.container}>
@@ -134,6 +153,7 @@ INSIDE ADDNUMBER CALL THE FUNCTION THAT SUMS THE ENTIRE STATE ARRAY
                         </View>
                     </View>
                 </View>
+                <Text>TOTAL: {total}</Text>
             </ScrollView>
         </SafeAreaView>
     );
