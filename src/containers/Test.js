@@ -23,13 +23,17 @@ INSIDE ADDNUMBER CALL THE FUNCTION THAT SUMS THE ENTIRE STATE ARRAY
         parseInt(temp)
         let newSum = 0
         parseInt(newSum)
-        newArr.forEach(element => {
+        newArr.forEach((element, index) => {
             {element == undefined ? 
                 null
-             : (
-                newSum = parseInt(element),
-                temp += newSum
-                )
+             : 
+                index < 10 ? (
+                    newSum = parseInt(element),
+                    temp += newSum
+                    ) : (
+                    newSum = parseInt(element),
+                    temp -= newSum 
+                    )
             }
         })
         onTotalChange(temp)
@@ -153,7 +157,7 @@ INSIDE ADDNUMBER CALL THE FUNCTION THAT SUMS THE ENTIRE STATE ARRAY
                         </View>
                     </View>
                 </View>
-                <Text>TOTAL: {total}</Text>
+                <Text style={styles.total}>{total}</Text>
             </ScrollView>
         </SafeAreaView>
     );
@@ -165,6 +169,12 @@ const styles = StyleSheet.create({
       backgroundColor: '#fff',
       /*alignItems: 'center',*/
       justifyContent: 'center',
+    },
+    total: {
+        borderWidth: 2,
+        marginLeft: 15,
+        borderColor: 'green',
+        width: '50%'
     },
     account:{
         padding: 15
