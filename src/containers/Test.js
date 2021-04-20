@@ -157,7 +157,17 @@ INSIDE ADDNUMBER CALL THE FUNCTION THAT SUMS THE ENTIRE STATE ARRAY
                         </View>
                     </View>
                 </View>
-                <Text style={styles.total}>{total}</Text>
+                {total < 0 ?
+                    <View style={styles.renglonContainerTotNeg}>
+                        <Text style={styles.contained2}>$</Text>
+                        <Text style={styles.total}>{total}</Text>
+                    </View> 
+                :
+                    <View style={styles.renglonContainerTot}>
+                        <Text style={styles.contained2}>$</Text>
+                        <Text style={styles.total}>{total}</Text>
+                    </View>
+                }
             </ScrollView>
         </SafeAreaView>
     );
@@ -171,10 +181,7 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
     },
     total: {
-        borderWidth: 2,
-        marginLeft: 15,
-        borderColor: 'green',
-        width: '50%'
+        marginTop: 4
     },
     account:{
         padding: 15
@@ -202,9 +209,36 @@ const styles = StyleSheet.create({
         alignItems: 'flex-start',
         marginLeft: 5
     },
+    renglonContainerTot: {
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        /*justifyContent: 'space-between',*/
+        alignItems: 'flex-start',
+        borderWidth: 2,
+        marginLeft: 15,
+        borderColor: 'green',
+        width: '50%',
+        height: 30
+    },
+    renglonContainerTotNeg: {
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        /*justifyContent: 'space-between',*/
+        alignItems: 'flex-start',
+        borderWidth: 2,
+        marginLeft: 15,
+        borderColor: 'red',
+        width: '50%',
+        height: 30
+    },
     contained1: {
         width: '10%',
         marginTop: 6.5
+    },
+    contained2: {
+        width: '10%',
+        marginTop: 4,
+        marginLeft: 4
     },
     /*contained2: {
         width: '90%'

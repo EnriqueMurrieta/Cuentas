@@ -6,6 +6,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import Home from './src/containers/Home';
 import Edit from './src/containers/Edit';
 import Test from './src/containers/Test';
+import NewT from './src/containers/NewT';
 
 const Stack = createStackNavigator();
 
@@ -24,6 +25,10 @@ export default function App() {
       <Stack.Screen
           name="Test"
           component={Test}
+        />
+        <Stack.Screen
+          name="NewT"
+          component={NewT}
         />
       </Stack.Navigator>
     </NavigationContainer>
