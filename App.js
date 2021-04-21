@@ -7,13 +7,14 @@ import Home from './src/containers/Home';
 import Edit from './src/containers/Edit';
 import Test from './src/containers/Test';
 import NewT from './src/containers/NewT';
+import Entry from './src/containers/Entry';
 
 const Stack = createStackNavigator();
 
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Home">
+      <Stack.Navigator initialRouteName="Entry">
         <Stack.Screen
           name="Home"
           component={Home}
@@ -29,6 +30,10 @@ export default function App() {
         <Stack.Screen
           name="NewT"
           component={NewT}
+        />
+        <Stack.Screen
+          name="Entry"
+          component={Entry}
         />
       </Stack.Navigator>
     </NavigationContainer>
