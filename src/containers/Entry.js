@@ -1,29 +1,20 @@
-import * as React from 'react';
+import React, { useEffect, useState } from 'react';
 import * as WebBrowser from 'expo-web-browser';
 import { ResponseType } from 'expo-auth-session';
 import * as Google from 'expo-auth-session/providers/google';
 import firebase from 'firebase';
 import { Button, View, Text, StyleSheet, Image } from 'react-native';
 
-// Initialize Firebase
-if (!firebase.apps.length) {
-  firebase.initializeApp({
-    /* Config */
-    apiKey: "AIzaSyDU9ktXyHx-aKpt_wm-IZ44AgvDXISujzE",
-    authDomain: "portafolio-2bd12.firebaseapp.com",
-    projectId: "portafolio-2bd12",
-    storageBucket: "portafolio-2bd12.appspot.com",
-    messagingSenderId: "1078511714887",
-    appId: "1:1078511714887:web:61087d53f1ed5ee2322762",
-    measurementId: "G-S1CE7274R3"
-  });
+const useForceUpdate = () => {
+  const [value, setValue] = useState(0); // integer state
+  return () => setValue(value => value + 1); // update the state to force render
 }
-
-WebBrowser.maybeCompleteAuthSession();
 
 export default function Entry() {
 
-  const [user, onChangeUser] = React.useState();
+  const forceUpdate = useForceUpdate();
+
+  const [user, onChangeUser] = useState();
 
   const [request, response, promptAsync] = Google.useIdTokenAuthRequest(
     {
@@ -33,7 +24,7 @@ export default function Entry() {
 
   /*let meanWhile = undefined;*/
   /*let user = "";*/
-  React.useEffect(() => {
+  useEffect(() => {
     if (response?.type === 'success') {
       const { id_token } = response.params;
       /*console.log(response);
@@ -65,13 +56,13 @@ export default function Entry() {
     let meanWhile = firebase.auth().currentUser;
     onChangeUser(meanWhile)
   })*/
-
+/*
   const logout = () => {
     firebase.auth().signOut().then(() => {
       console.log('User signed out');
     })
-    /*onChangeUser({})*/
-  }
+    //onChangeUser({})
+  }*/
 
   const test = () => {
     let meanWhile = firebase.auth().currentUser;
@@ -93,16 +84,13 @@ export default function Entry() {
         />
         <Text>Hey, test...test</Text>
         <Button
-          title="Logout"
-          onPress={logout}
-        />
-        <Button
           title="Test"
           onPress={test}
         />
-        {user != null ? 
-        <Text>Signed in</Text> :
-        <Text>Not signed in</Text> }
+        <Button
+          title="Re render"
+          onPress={forceUpdate}
+        />
     </View>
   );
 }
@@ -116,6 +104,14 @@ const styles = StyleSheet.create({
 
 /*
 {user != null ? 
+        <Text>Signed in</Text> :
+        <Text>Not signed in</Text> }
+
+*/
+
+
+/*
+{user != null ? 
           <View>
             <Text>{user.displayName}</Text>
             <Text>{user.email}</Text>
@@ -124,4 +120,12 @@ const styles = StyleSheet.create({
               source={{uri: user.photoURL}}
             />
           </View> : null }
+*/
+
+/*
+<Button
+          title="Logout"
+          onPress={logout}
+        />
+
 */
