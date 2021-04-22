@@ -22,8 +22,8 @@ if (!firebase.apps.length) {
 WebBrowser.maybeCompleteAuthSession();
 
 export default function Entry() {
-/*
-  const [user, onChangeUser] = React.useState({});*/
+
+  const [user, onChangeUser] = React.useState();
 
   const [request, response, promptAsync] = Google.useIdTokenAuthRequest(
     {
@@ -44,6 +44,8 @@ export default function Entry() {
       firebase.auth().signInWithCredential(credential).then(() => {
         console.log('User signed in')
       })
+      console.log(user)
+      onChangeUser(firebase.auth().currentUser);
       /*meanWhile = firebase.auth().currentUser;*/
       /*onChangeUser(meanWhile)*/
       /*console.log(firebase.auth().currentUser)*/
@@ -76,6 +78,10 @@ export default function Entry() {
     console.log(meanWhile)
   }
 
+
+/*
+  firebase.auth().currentUser ? onChangeUser(firebase.auth().currentUser) : null ; */
+
   return (
     <View>
         <Button
@@ -94,6 +100,9 @@ export default function Entry() {
           title="Test"
           onPress={test}
         />
+        {user != null ? 
+        <Text>Signed in</Text> :
+        <Text>Not signed in</Text> }
     </View>
   );
 }
