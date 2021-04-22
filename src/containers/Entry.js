@@ -3,7 +3,7 @@ import * as WebBrowser from 'expo-web-browser';
 import { ResponseType } from 'expo-auth-session';
 import * as Google from 'expo-auth-session/providers/google';
 import firebase from 'firebase';
-import { Button, View, Text } from 'react-native';
+import { Button, View, Text, StyleSheet, Image } from 'react-native';
 
 // Initialize Firebase
 if (!firebase.apps.length) {
@@ -22,8 +22,8 @@ if (!firebase.apps.length) {
 WebBrowser.maybeCompleteAuthSession();
 
 export default function Entry() {
-
-    const [data, onChangeData] = React.useState();
+/*
+  const [user, onChangeUser] = React.useState({});*/
 
   const [request, response, promptAsync] = Google.useIdTokenAuthRequest(
     {
@@ -31,18 +31,50 @@ export default function Entry() {
       },
   );
 
-
+  /*let meanWhile = undefined;*/
   /*let user = "";*/
   React.useEffect(() => {
     if (response?.type === 'success') {
       const { id_token } = response.params;
-      console.log(response);
-      /*user = response.user;*/
+      /*console.log(response);
+      user = response.user;*/
       const credential = firebase.auth.GoogleAuthProvider.credential(id_token);
-      console.log(credential);
-      firebase.auth().signInWithCredential(credential);
+      /*console.log(credential);*/
+      console.log('This should appear every log in');
+      firebase.auth().signInWithCredential(credential).then(() => {
+        console.log('User signed in')
+      })
+      /*meanWhile = firebase.auth().currentUser;*/
+      /*onChangeUser(meanWhile)*/
+      /*console.log(firebase.auth().currentUser)*/
     }
   }, [response]);
+/*
+  let user = firebase.auth().currentUser;
+  let name, email, photoUrl;
+
+  {user != null ? (
+    name = user.displayName,
+    email = user.email,
+    photoUrl = user.photoURL ) : null }
+    */
+  /*
+  React.useEffect(() => {
+    let meanWhile = firebase.auth().currentUser;
+    onChangeUser(meanWhile)
+  })*/
+
+  const logout = () => {
+    firebase.auth().signOut().then(() => {
+      console.log('User signed out');
+    })
+    /*onChangeUser({})*/
+  }
+
+  const test = () => {
+    let meanWhile = firebase.auth().currentUser;
+    console.log(meanWhile)
+  }
 
   return (
     <View>
@@ -54,6 +86,33 @@ export default function Entry() {
             }}
         />
         <Text>Hey, test...test</Text>
+        <Button
+          title="Logout"
+          onPress={logout}
+        />
+        <Button
+          title="Test"
+          onPress={test}
+        />
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  img: {
+    width: 65,
+    height: 65
+  }
+})
+
+/*
+{user != null ? 
+          <View>
+            <Text>{user.displayName}</Text>
+            <Text>{user.email}</Text>
+            <Image
+              style={styles.img}
+              source={{uri: user.photoURL}}
+            />
+          </View> : null }
+*/
