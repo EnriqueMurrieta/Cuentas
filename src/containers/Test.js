@@ -8,11 +8,11 @@ let dato = [];
 
 
 
-export default function Test() {
+export default function Test({suma, sumaCambio}) {
     
     const [number, onChangeNumber] = React.useState([]);
     const [text, onChangeText] = React.useState("");
-    const [total, onTotalChange] = React.useState();
+    /*const [total, onTotalChange] = React.useState();*/
 
 /*
 INSIDE ADDNUMBER CALL THE FUNCTION THAT SUMS THE ENTIRE STATE ARRAY
@@ -37,7 +37,11 @@ INSIDE ADDNUMBER CALL THE FUNCTION THAT SUMS THE ENTIRE STATE ARRAY
                     )
             }
         })
+        /*
         onTotalChange(temp)
+        */
+       sumaCambio(temp)
+
         /*
         sum = parseInt(temp)
         console.log(parseInt(sum))
@@ -158,15 +162,15 @@ INSIDE ADDNUMBER CALL THE FUNCTION THAT SUMS THE ENTIRE STATE ARRAY
                         </View>
                     </View>
                 </View>
-                {total < 0 ?
+                {suma < 0 ?
                     <View style={styles.renglonContainerTotNeg}>
                         <Text style={styles.contained2}>$</Text>
-                        <Text style={styles.total}>{total}</Text>
+                        <Text style={styles.total}>{suma}</Text>
                     </View> 
                 :
                     <View style={styles.renglonContainerTot}>
                         <Text style={styles.contained2}>$</Text>
-                        <Text style={styles.total}>{total}</Text>
+                        <Text style={styles.total}>{suma}</Text>
                     </View>
                 }
             </ScrollView>

@@ -4,19 +4,25 @@ import { roundToNearestPixel } from 'react-native/Libraries/Utilities/PixelRatio
 import Test from './Test';
 
 export default function Home ({route, navigation}) {
+    const [suma, sumaCambio] = React.useState();
     const {name} = route.params;
     return(
         <ScrollView>
-            <Test/>
-            <Test/>
-            <Test/>
-            <Test/>
-            <Test/>
-            <Test/>
-            <Test/>
-            <Test/>
-            <Test/>
-            <Test/>
+            <Test suma={suma} sumaCambio={sumaCambio}/>
+            
         </ScrollView>
     );
 }
+
+/*
+<Test/>
+            <Test/>
+            <Test/>
+            <Test/>
+            <Test/>
+            <Test/>
+            <Test/>
+            <Test/>
+            <Test/>
+
+*/
