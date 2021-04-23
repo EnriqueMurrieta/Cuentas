@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View, SafeAreaView, ScrollView, StatusBar, Image, FlatList, TouchableOpacity, Button, TextInput } from 'react-native';
+import { onChange } from 'react-native-reanimated';
 /*
 let sum = 0;
 let dato = [];
