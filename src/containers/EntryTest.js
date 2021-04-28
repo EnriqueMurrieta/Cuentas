@@ -40,13 +40,16 @@ export default class EntryTest extends Component {
                 console.log('This should appear every log in');
                 firebase.auth().signInWithCredential(credential).then(() => {
                   console.log('User signed in')
+                  console.log('meanWhile')  
+                  let meanWhile = firebase.auth().currentUser;
+                      
                 })
             }
         }, [res]);
 
         const test = () => {
-            let meanWhile = firebase.auth().currentUser;
-            console.log(meanWhile)
+            /*let meanWhile = firebase.auth().currentUser;
+            console.log(meanWhile)*/
           }
 
         return(

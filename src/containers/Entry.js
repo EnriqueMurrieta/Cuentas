@@ -35,8 +35,8 @@ export default function Entry() {
       firebase.auth().signInWithCredential(credential).then(() => {
         console.log('User signed in')
       })
-      console.log(user)
-      onChangeUser(firebase.auth().currentUser);
+      /*console.log(user)
+      onChangeUser(firebase.auth().currentUser); */
       /*meanWhile = firebase.auth().currentUser;*/
       /*onChangeUser(meanWhile)*/
       /*console.log(firebase.auth().currentUser)*/

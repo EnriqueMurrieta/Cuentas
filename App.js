@@ -10,6 +10,7 @@ import NewT from './src/containers/NewT';
 import Entry from './src/containers/Entry';
 import Lobby from './src/containers/Lobby';
 import EntryTest from './src/containers/EntryTest';
+import HomeTest from './src/containers/HomeTest';
 
 import firebase from 'firebase';
 import * as WebBrowser from 'expo-web-browser';
@@ -64,6 +65,10 @@ export default class App extends Component {
           <Stack.Screen
             name="EntryTest"
             component={EntryTest}
+          />
+          <Stack.Screen
+            name="HomeTest"
+            component={HomeTest}
           />
         </Stack.Navigator>
       </NavigationContainer>

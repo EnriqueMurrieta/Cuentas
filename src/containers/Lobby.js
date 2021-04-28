@@ -12,7 +12,7 @@ export default class Lobby extends Component {
 
     checkIfLoggedIn = () => {
         firebase.auth().onAuthStateChanged(user => {
-            user ? this.props.navigation.navigate('Home') : this.props.navigation.navigate('Entry')
+            user ? this.props.navigation.navigate('HomeTest') : this.props.navigation.navigate('Entry')
         })
     }
 

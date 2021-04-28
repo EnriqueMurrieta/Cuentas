@@ -8,10 +8,10 @@ let dato = [];
 
 
 
-export default function Test({suma, sumaCambio}) {
+export default function Test({suma, sumaCambio, cuenta, onChangeCuenta, number, onChangeNumber}) {
     
-    const [number, onChangeNumber] = React.useState([]);
-    const [text, onChangeText] = React.useState("");
+    /*const [number, onChangeNumber] = React.useState([]);*/
+    /*const [text, onChangeText] = React.useState("");*/
     /*const [total, onTotalChange] = React.useState();*/
 
 /*
@@ -74,7 +74,7 @@ INSIDE ADDNUMBER CALL THE FUNCTION THAT SUMS THE ENTIRE STATE ARRAY
         <SafeAreaView style={styles.container}>
             <ScrollView>
                 <View style={styles.account}>
-                    <TextInput value={text} onChangeText={(entry, name) => onChangeText(entry)} placeholder="Nombre Cuenta" style={styles.input}/>
+                    <TextInput value={cuenta} onChangeText={(entry, name) => onChangeCuenta(entry)} placeholder="Nombre Cuenta" style={styles.input}/>
                     <View style={styles.debeHaber}>
                         <View style={styles.debe}>
                             <View style={styles.renglonContainer}>

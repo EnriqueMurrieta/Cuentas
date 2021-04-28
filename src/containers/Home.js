@@ -7,8 +7,11 @@ export default function Home({navigation, NewT="NewT"}) {
 
     const [name, onChangeName] = React.useState("");
     const [project, onChangeProject] = React.useState(false);
-
-
+/*
+    useEffect(() => {
+        let alele = firebase.auth().currentUser
+        console.log(alele)
+    }, []);*/
 
     logout = () => {
         firebase.auth().signOut().then(() => {
@@ -31,7 +34,8 @@ export default function Home({navigation, NewT="NewT"}) {
                     </View>
                 : null } 
                 <Text>LALALALA</Text>
-                <Button title="Sign Out" onPress={() => firebase.auth().signOut()}/>
+                <Button title="User" onPress={() => console.log(firebase.auth().currentUser)}/>
+                <Button title="Sign Out" onPress={() => logout()}/>
             </ScrollView>
         </SafeAreaView>
         
