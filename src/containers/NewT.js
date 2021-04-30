@@ -95,6 +95,7 @@ export default function Home ({route, navigation}) {
         let user = firebase.auth().currentUser;
         const dbh = firebase.firestore();
         dbh.collection("users").doc(user.uid).collection("projects").doc(name).set({
+            name: name,
             cuenta1: {
                 suma: newSuma1,
                 cuenta: cuenta1,

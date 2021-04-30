@@ -4,14 +4,14 @@ import { StyleSheet, Text, View, SafeAreaView, ScrollView, StatusBar, Image, Tex
 import * as firebase from 'firebase'
 import 'firebase/firestore';
 
-
-
 export default class Home extends Component {
     constructor (props) {
         super(props)
         this.state = {
             project: false,
-            name: ""
+            name: "",
+            show: true,
+            data: []
         }
     }
 /*
@@ -20,19 +20,76 @@ export default class Home extends Component {
         console.log(alele)
     }, []);*/
 
+
     componentDidMount() {
         let user = firebase.auth().currentUser;
-        console.log(user);
+        console.log(user.uid);
         const dbh = firebase.firestore();
         dbh.collection("users").doc(user.uid).set({
             name: user.displayName,
             email: user.email,
             photoURL: user.photoURL,
         })
+        const db = firebase.firestore();
+        db.collection("users").doc(firebase.auth().currentUser.uid).collection("projects").get().then((querySnapshot) => {
+            if (!querySnapshot.empty){
+                let info = []
+                querySnapshot.forEach((doc) => {
+                    info.push(doc.data().name)
+                    /*info[index] = doc.data()*/
+                    /*console.log(info[index])*/
+                })
+                console.log(info)
+                console.log(info[1])
+                this.setState({data:info})
+                /*console.log(info)
+                info.forEach(item =>{
+                    console.log(item)
+                })
+                this.setState({informacion: info})*/
+                /*this.setState( (state) => {
+                    const informacion = info.map(item => item)
+                    return{
+                        informacion
+                    } 
+                })*/
+            }
+        })
     }
 
     render(){
-        
+
+        firebaseTest = () => {
+            const db = firebase.firestore();
+            db.collection("users").doc(firebase.auth().currentUser.uid).collection("projects").get().then((querySnapshot) => {
+                if (!querySnapshot.empty){
+                    querySnapshot.forEach((doc) => {
+                        console.log(doc.data().name)
+                    })
+                } else {
+                    console.log("No projects")
+                }
+            })
+        }
+
+        firebaseRender = () => {
+            const db = firebase.firestore();
+            db.collection("users").doc(firebase.auth().currentUser.uid).collection("projects").get().then((querySnapshot) => {
+                querySnapshot.forEach((doc) => {
+                    return <Text>{doc.data().name}</Text>
+                })
+            })
+        }
+
+       /* loadProjects = () => {
+            const db = firebase.firestore();
+            db.collection("users").doc(firebase.auth().currentUser.uid).collection("projects").get().then((querySnapshot) => {
+                querySnapshot.forEach((doc) =>{
+                    <Text>{doc.data().name}</Text>
+                })
+            })
+        }*/
+
         logout = () => {
             firebase.auth().signOut().then(() => {
               console.log('User signed out');
@@ -68,6 +125,9 @@ export default class Home extends Component {
                     <Text>LALALALA</Text>
                     <Button title="User" onPress={() => console.log(firebase.auth().currentUser)}/>
                     <Button title="Sign Out" onPress={() => logout()}/>
+                    <Button title="Firebase test" onPress={() => firebaseTest()}/>
+                    <Text>{this.state.data[1]}</Text>
+                    <Text>{this.state.data[0]}</Text>
                 </ScrollView>
             </SafeAreaView>
             
@@ -76,7 +136,13 @@ export default class Home extends Component {
 }
 
 /*
-
+<View>
+                        {db.collection("users").doc(firebase.auth().currentUser.uid).collection("projects").get().then((querySnapshot) => {
+                            querySnapshot.forEach((doc) =>{
+                                console.log(doc.data())
+                            })
+                        })}
+                    </View>
 */
 
 
