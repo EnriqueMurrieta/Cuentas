@@ -1,4 +1,4 @@
-import React, { Component, useLayoutEffect } from 'react';
+import React, { Component, useEffect, useLayoutEffect } from 'react';
 import { StyleSheet, Text, View, SafeAreaView, ScrollView, StatusBar, Image, FlatList, TouchableOpacity, Button } from 'react-native';
 import { roundToNearestPixel } from 'react-native/Libraries/Utilities/PixelRatio';
 import Test from './Test';
@@ -7,7 +7,7 @@ import * as firebase from 'firebase'
 import 'firebase/firestore';
 
 export default function Home ({route, navigation}) {
-    const {name} = route.params;
+    const {name, data} = route.params;
 
     const [suma1, sumaCambio1] = React.useState();
     const [cuenta1, onChangeCuenta1] = React.useState("");
@@ -60,6 +60,83 @@ export default function Home ({route, navigation}) {
         {int != undefined ? newSuma = int : newSuma = 0}
         return newSuma;
     }
+
+    const setNumberToClientEach = (cuenta, loadedArr) => {
+        cuenta.number.forEach((number, index) => {
+            {number != 0 ? loadedArr[index] = number : loadedArr[index] = undefined}
+        })
+    }
+
+    const setNumberToClient = () => {
+        let loadedArr1 = [];
+        let loadedArr2 = [];
+        let loadedArr3 = [];
+        let loadedArr4 = [];
+        let loadedArr5 = [];
+        let loadedArr6 = [];
+        let loadedArr7 = [];
+        let loadedArr8 = [];
+        let loadedArr9 = [];
+        let loadedArr10 = [];
+        setNumberToClientEach(data.cuenta1, loadedArr1)
+        setNumberToClientEach(data.cuenta2, loadedArr2)
+        setNumberToClientEach(data.cuenta3, loadedArr3)
+        setNumberToClientEach(data.cuenta4, loadedArr4)
+        setNumberToClientEach(data.cuenta5, loadedArr5)
+        setNumberToClientEach(data.cuenta6, loadedArr6)
+        setNumberToClientEach(data.cuenta7, loadedArr7)
+        setNumberToClientEach(data.cuenta8, loadedArr8)
+        setNumberToClientEach(data.cuenta9, loadedArr9)
+        setNumberToClientEach(data.cuenta10, loadedArr10)
+        onChangeNumber1(loadedArr1)
+        onChangeNumber2(loadedArr2)
+        onChangeNumber3(loadedArr3)
+        onChangeNumber4(loadedArr4)
+        onChangeNumber5(loadedArr5)
+        onChangeNumber6(loadedArr6)
+        onChangeNumber7(loadedArr7)
+        onChangeNumber8(loadedArr8)
+        onChangeNumber9(loadedArr9)
+        onChangeNumber10(loadedArr10)
+    }
+
+    setNameToClient = () => {
+        onChangeCuenta1(data.cuenta1.cuenta)
+        onChangeCuenta2(data.cuenta2.cuenta)
+        onChangeCuenta3(data.cuenta3.cuenta)
+        onChangeCuenta4(data.cuenta4.cuenta)
+        onChangeCuenta5(data.cuenta5.cuenta)
+        onChangeCuenta6(data.cuenta6.cuenta)
+        onChangeCuenta7(data.cuenta7.cuenta)
+        onChangeCuenta8(data.cuenta8.cuenta)
+        onChangeCuenta9(data.cuenta9.cuenta)
+        onChangeCuenta10(data.cuenta10.cuenta)
+    }
+
+    setSumaToClient = () => {
+        sumaCambio1(data.cuenta1.suma)
+        sumaCambio2(data.cuenta2.suma)
+        sumaCambio3(data.cuenta3.suma)
+        sumaCambio4(data.cuenta4.suma)
+        sumaCambio5(data.cuenta5.suma)
+        sumaCambio6(data.cuenta6.suma)
+        sumaCambio7(data.cuenta7.suma)
+        sumaCambio8(data.cuenta8.suma)
+        sumaCambio9(data.cuenta9.suma)
+        sumaCambio10(data.cuenta10.suma)
+    }
+
+    setClientLoad = () => {
+        setNameToClient(),
+        setSumaToClient(),
+        setNumberToClient()
+    }
+
+    useEffect(() => {
+        data ? 
+            setClientLoad()    
+        : null
+    },[data])
 
     const guardar = () => {
         let newArr1 = [];

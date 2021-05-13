@@ -10,7 +10,7 @@ export default class Home extends Component {
         this.state = {
             project: false,
             name: "",
-            show: true,
+            show: false,
             data: []
         }
     }
@@ -35,13 +35,15 @@ export default class Home extends Component {
             if (!querySnapshot.empty){
                 let info = []
                 querySnapshot.forEach((doc) => {
-                    info.push(doc.data().name)
+                    info.push(doc.data())
+                    /*console.log(doc.data())*/
+                    
                     /*info[index] = doc.data()*/
                     /*console.log(info[index])*/
                 })
-                console.log(info)
-                console.log(info[1])
-                this.setState({data:info})
+                /*console.log(info)
+                console.log(info[1])*/
+                this.setState({data:info, show:true})
                 /*console.log(info)
                 info.forEach(item =>{
                     console.log(item)
@@ -108,32 +110,65 @@ export default class Home extends Component {
             this.props.navigation.navigate('NewT', {name:this.state.name})
         }
 
+        checkFirebase = (nombre) => {
+            console.log("Hey dude")
+            this.state.data.map(project => {
+                project.name == nombre ? (
+                    /*console.log(project),*/
+                    this.props.navigation.navigate('NewT', {name:nombre, data:project}) 
+                ) : null
+            })
+            
+        }
+
         return(
             <SafeAreaView style={styles.container}>
                 <ScrollView>
-                    <TouchableOpacity>
-                        <Button title="Nuevo Proyecto" onPress={() => nuevoProyecto()}/>
-                    </TouchableOpacity>
-                    {this.state.project == true ?
-                        <View style={styles.form}>
-                            <TextInput value={this.state.name} onChangeText={(entry)=> nombreProyecto(entry)} placeholder="Nombre del proyecto" style={styles.input}/>
-                            {this.state.name != "" ?
-                                <Button title="Ir" onPress={() => navegar()} style={styles.submit}/>
-                            : null }
+                    <View style={styles.top}>
+                        <TouchableOpacity>
+                            <Button title="Nuevo Proyecto" onPress={() => nuevoProyecto()}/>
+                        </TouchableOpacity>
+                        {this.state.project == true ?
+                            <View style={styles.form}>
+                                <TextInput value={this.state.name} onChangeText={(entry)=> nombreProyecto(entry)} placeholder="Nombre del proyecto" style={styles.input}/>
+                                {this.state.name != "" ?
+                                    <Button title="Ir" onPress={() => navegar()} style={styles.submit}/>
+                                : null }
+                            </View>
+                        : null } 
+                        <Text>LALALALA</Text>
+                        <Button title="User" onPress={() => console.log(firebase.auth().currentUser)}/>
+                        <Button title="Sign Out" onPress={() => logout()}/>
+                        <Button title="Firebase test" onPress={() => firebaseTest()}/>
+                    </View>
+                    {this.state.show ?
+                        <View>
+                            <Text style={styles.subtitle}>Projects</Text> 
+                            <View style={styles.projects}>
+                                {this.state.data.map((project) => {
+                                    return(
+                                        <View key={project.name}>
+                                            <Button onPress={() => checkFirebase(project.name)} title={project.name}/>
+                                        </View>
+                                    )
+                                })}
+                                 
+                            </View>
                         </View>
-                    : null } 
-                    <Text>LALALALA</Text>
-                    <Button title="User" onPress={() => console.log(firebase.auth().currentUser)}/>
-                    <Button title="Sign Out" onPress={() => logout()}/>
-                    <Button title="Firebase test" onPress={() => firebaseTest()}/>
-                    <Text>{this.state.data[1]}</Text>
-                    <Text>{this.state.data[0]}</Text>
+                    : 
+                        <Text style={styles.subtitle}>No Projects...</Text>
+                    }
                 </ScrollView>
             </SafeAreaView>
             
         );
     }
 }
+
+/*
+<Button title={this.state.data[1]}/>
+                                <Button title={this.state.data[0]}/>
+*/
 
 /*
 <View>
@@ -157,7 +192,10 @@ export default class Home extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#fff',
+        backgroundColor: '#fff'
+    },
+    top: {
+        backgroundColor: '#d3d3d3'
     },
     form: {
         flex: 1,
@@ -175,5 +213,13 @@ const styles = StyleSheet.create({
     },
     submit: {
         width: '20%'
+    },
+    subtitle: {
+        textAlign: 'center',
+        fontSize: 25,
+        marginTop: 15
+    },
+    projects: {
+        alignItems: 'flex-start'
     }
 })
