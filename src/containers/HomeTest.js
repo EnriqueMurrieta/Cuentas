@@ -11,8 +11,11 @@ export default class Home extends Component {
             project: false,
             name: "",
             show: false,
-            data: []
-        }
+            data: [],
+            saved: false
+        },
+        this.componentUpdate = this.componentUpdate.bind(this)
+        /*this.updateComponent = this.updateComponent.bind(this)*/
     }
 /*
     useEffect(() => {
@@ -20,9 +23,38 @@ export default class Home extends Component {
         console.log(alele)
     }, []);*/
 
+    componentDidUpdate(prevProps, prevState){
+        //this.props.route.params?.saved
+        /*if (this.state.saved == prevState.saved){
+            null
+        } else {
+            this.setState({saved:!this.state.saved})
+        }*/
+        //this.props.route.params.saved ? console.log(this.props.route.params.saved) : null
+    }
+
+    
 
     componentDidMount() {
+        /*this.props.navigation.addListener(
+            'didFocus',
+            payload => {
+                console.log("payload")
+                this.forceUpdate();
+            }
+        );*/
+        /*const didBlurSub = this.props.navigation.addListener(
+            'willBlur',
+            payload => {
+                this.setState({saved:!this.state.saved})
+            }
+        )*/
+        /*const {navigation} = this.props;
+        navigation.addListener ('willFocus', () => {
+            // run function that updates the data on entering the screen
+        }); */
         let user = firebase.auth().currentUser;
+        this.props.navigation.setOptions({ title: user.displayName })
         console.log(user.uid);
         const dbh = firebase.firestore();
         dbh.collection("users").doc(user.uid).set({
@@ -57,6 +89,17 @@ export default class Home extends Component {
                 })*/
             }
         })
+    }
+
+    updateComponent() {
+        /*console.log("updating?")*/
+        this.forceUpdate();
+    }
+
+    componentUpdate() {
+        console.log("updating... ?")
+        this.setState({saved:!this.state.saved})
+        /*this.forceUpdate();*/
     }
 
     render(){
@@ -107,7 +150,13 @@ export default class Home extends Component {
         }
 
         navegar = () => {
-            this.props.navigation.navigate('NewT', {name:this.state.name})
+            this.props.navigation.navigate('NewT', {name:this.state.name, saving: this.componentUpdate})
+        }
+
+        
+        
+        checkUpdate = () => {
+            console.log(this.state.saved)
         }
 
         checkFirebase = (nombre) => {
@@ -115,11 +164,17 @@ export default class Home extends Component {
             this.state.data.map(project => {
                 project.name == nombre ? (
                     /*console.log(project),*/
-                    this.props.navigation.navigate('NewT', {name:nombre, data:project}) 
+                    this.props.navigation.navigate('NewT', {name:nombre, data:project, saving: this.componentUpdate}) 
                 ) : null
             })
             
         }
+
+        
+/*
+        history.listen((location, action) => {
+            console.log(location, action);
+        })*/
 
         return(
             <SafeAreaView style={styles.container}>
@@ -140,6 +195,9 @@ export default class Home extends Component {
                         <Button title="User" onPress={() => console.log(firebase.auth().currentUser)}/>
                         <Button title="Sign Out" onPress={() => logout()}/>
                         <Button title="Firebase test" onPress={() => firebaseTest()}/>
+                        <Button title="Update" onPress={() => updateComponent()}/>
+                        <Button title="saved" onPress={() => componentUpdate()}/>
+                        <Button title="check" onPress={() => checkUpdate()}/>
                     </View>
                     {this.state.show ?
                         <View>

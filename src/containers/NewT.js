@@ -6,8 +6,16 @@ import Test from './Test';
 import * as firebase from 'firebase'
 import 'firebase/firestore';
 
+import { CommonActions } from '@react-navigation/native';
+
+import { LogBox } from 'react-native';
+
+LogBox.ignoreLogs([
+ 'Non-serializable values were found in the navigation state',
+]);
+
 export default function Home ({route, navigation}) {
-    const {name, data} = route.params;
+    const {name, data, saving} = route.params;
 
     const [suma1, sumaCambio1] = React.useState();
     const [cuenta1, onChangeCuenta1] = React.useState("");
@@ -226,6 +234,22 @@ export default function Home ({route, navigation}) {
         }).catch((error) =>{
             console.log("Error writing document: ", error);
         })
+        /*saving()
+        navigation.navigate('HomeTest')*/
+        /*route.params.saving();*/
+        /*navigation.navigate.goBack();*/
+        /*navigation.navigate('HomeTest')*/
+        navigation.dispatch(
+            CommonActions.reset({
+              index: 1,
+              routes: [
+                { name: 'Lobby' },
+                {
+                  name: 'HomeTest'
+                },
+              ],
+            })
+          );
     }
 
     return(

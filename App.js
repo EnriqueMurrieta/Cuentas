@@ -69,6 +69,8 @@ export default class App extends Component {
           <Stack.Screen
             name="HomeTest"
             component={HomeTest}
+            /*options={{detachPreviousScreen: true}}*/
+            options={{headerLeft: null}}
           />
         </Stack.Navigator>
       </NavigationContainer>
