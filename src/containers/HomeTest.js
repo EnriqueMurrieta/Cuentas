@@ -12,7 +12,8 @@ export default class Home extends Component {
             name: "",
             show: false,
             data: [],
-            saved: false
+            saved: false,
+            userPhoto: ""
         },
         this.componentUpdate = this.componentUpdate.bind(this)
         /*this.updateComponent = this.updateComponent.bind(this)*/
@@ -75,7 +76,7 @@ export default class Home extends Component {
                 })
                 /*console.log(info)
                 console.log(info[1])*/
-                this.setState({data:info, show:true})
+                this.setState({data:info, show:true, userPhoto: user.photoURL})
                 /*console.log(info)
                 info.forEach(item =>{
                     console.log(item)
@@ -180,6 +181,9 @@ export default class Home extends Component {
             <SafeAreaView style={styles.container}>
                 <ScrollView>
                     <View style={styles.top}>
+                        {this.state.userPhoto == "" ?
+                            null
+                        : <Image style={styles.userImg} source={{uri: this.state.userPhoto}}/>}
                         <TouchableOpacity>
                             <Button title="Nuevo Proyecto" onPress={() => nuevoProyecto()}/>
                         </TouchableOpacity>
@@ -279,5 +283,12 @@ const styles = StyleSheet.create({
     },
     projects: {
         alignItems: 'flex-start'
+    },
+    userImg: {
+        alignSelf: 'flex-start',
+        margin: 10,
+        width: 75,
+        height: 75,
+        borderRadius: 37.5
     }
 })
