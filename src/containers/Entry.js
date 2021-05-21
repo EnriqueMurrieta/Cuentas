@@ -42,6 +42,7 @@ export default function Entry() {
       /*console.log(firebase.auth().currentUser)*/
     }
   }, [response]);
+
 /*
   let user = firebase.auth().currentUser;
   let name, email, photoUrl;

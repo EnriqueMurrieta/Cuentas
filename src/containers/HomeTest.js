@@ -4,6 +4,8 @@ import { StyleSheet, Text, View, SafeAreaView, ScrollView, StatusBar, Image, Tex
 import * as firebase from 'firebase'
 import 'firebase/firestore';
 
+import { CommonActions } from '@react-navigation/native';
+
 export default class Home extends Component {
     constructor (props) {
         super(props)
@@ -88,6 +90,8 @@ export default class Home extends Component {
                         informacion
                     } 
                 })*/
+            } else {
+                this.setState({userPhoto: user.photoURL})
             }
         })
         this.props.navigation.setOptions({
@@ -132,7 +136,14 @@ export default class Home extends Component {
 
         logout = () => {
             firebase.auth().signOut().then(() => {
-                alert('Logged out!')
+                this.props.navigation.dispatch(
+                    CommonActions.reset({
+                      index: 0,
+                      routes: [
+                        { name: 'Lobby' },
+                      ],
+                    })
+                );
             })
         }
 
