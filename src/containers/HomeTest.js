@@ -90,17 +90,20 @@ export default class Home extends Component {
                 })*/
             }
         })
+        this.props.navigation.setOptions({
+            headerRight: () => (
+              <Button onPress={() => logout()} title="Log out" />
+            ),
+        });
     }
 
     updateComponent() {
-        /*console.log("updating?")*/
         this.forceUpdate();
     }
 
     componentUpdate() {
         console.log("updating... ?")
         this.setState({saved:!this.state.saved})
-        /*this.forceUpdate();*/
     }
 
     render(){
@@ -127,18 +130,9 @@ export default class Home extends Component {
             })
         }
 
-       /* loadProjects = () => {
-            const db = firebase.firestore();
-            db.collection("users").doc(firebase.auth().currentUser.uid).collection("projects").get().then((querySnapshot) => {
-                querySnapshot.forEach((doc) =>{
-                    <Text>{doc.data().name}</Text>
-                })
-            })
-        }*/
-
         logout = () => {
             firebase.auth().signOut().then(() => {
-              console.log('User signed out');
+                alert('Logged out!')
             })
         }
 
@@ -164,7 +158,6 @@ export default class Home extends Component {
             console.log("Hey dude")
             this.state.data.map(project => {
                 project.name == nombre ? (
-                    /*console.log(project),*/
                     this.props.navigation.navigate('NewT', {name:nombre, data:project, saving: this.componentUpdate}) 
                 ) : null
             })
@@ -183,9 +176,10 @@ export default class Home extends Component {
                     <View style={styles.top}>
                         {this.state.userPhoto == "" ?
                             null
-                        : <Image style={styles.userImg} source={{uri: this.state.userPhoto}}/>}
+                        : <Image style={styles.userImg} source={{uri: this.state.userPhoto}}/>
+                        }
                         <TouchableOpacity>
-                            <Button title="Nuevo Proyecto" onPress={() => nuevoProyecto()}/>
+                            <Button style={styles.nuevoProyecto} title="Nuevo Proyecto" onPress={() => nuevoProyecto()}/>
                         </TouchableOpacity>
                         {this.state.project == true ?
                             <View style={styles.form}>
@@ -195,13 +189,6 @@ export default class Home extends Component {
                                 : null }
                             </View>
                         : null } 
-                        <Text>LALALALA</Text>
-                        <Button title="User" onPress={() => console.log(firebase.auth().currentUser)}/>
-                        <Button title="Sign Out" onPress={() => logout()}/>
-                        <Button title="Firebase test" onPress={() => firebaseTest()}/>
-                        <Button title="Update" onPress={() => updateComponent()}/>
-                        <Button title="saved" onPress={() => componentUpdate()}/>
-                        <Button title="check" onPress={() => checkUpdate()}/>
                     </View>
                     {this.state.show ?
                         <View>
@@ -226,30 +213,6 @@ export default class Home extends Component {
         );
     }
 }
-
-/*
-<Button title={this.state.data[1]}/>
-                                <Button title={this.state.data[0]}/>
-*/
-
-/*
-<View>
-                        {db.collection("users").doc(firebase.auth().currentUser.uid).collection("projects").get().then((querySnapshot) => {
-                            querySnapshot.forEach((doc) =>{
-                                console.log(doc.data())
-                            })
-                        })}
-                    </View>
-*/
-
-
-/*
-
-*/
-
-/*
- <Button title="Nuevo proyecto" onPress={() => navigation.navigate(NewT)}/>
-*/
 
 const styles = StyleSheet.create({
     container: {
@@ -290,5 +253,11 @@ const styles = StyleSheet.create({
         width: 75,
         height: 75,
         borderRadius: 37.5
+    },
+    signOut: {
+        alignItems: 'flex-start',
+    },
+    nuevoProyecto: {
+        alignItems: "center"
     }
 })

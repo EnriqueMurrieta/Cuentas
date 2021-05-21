@@ -57,6 +57,19 @@ export default function Home ({route, navigation}) {
     const [cuenta10, onChangeCuenta10] = React.useState("");
     const [number10, onChangeNumber10] = React.useState([]);
 
+    /*useEffect(() => {
+        console.log("Benvenu")
+        navigation.setOptions({ headerRight: () => (
+            <Button
+              onPress={() => alert('This is a button!')}
+              title="Info"
+              color="#fff"
+            />
+        )})
+    }, [navigation]) */
+
+    
+
     const setArrToFirestore = (arr, newArr) => {
         arr.forEach((number, index) => {
             {number != undefined ? newArr[index] = number : newArr[index] = 0}
@@ -146,7 +159,12 @@ export default function Home ({route, navigation}) {
         : null
     },[data])
 
+    const preGuardar = () => {
+        guardar();
+    }
+
     const guardar = () => {
+        alert('This is a button!')
         let newArr1 = [];
         let newArr2 = [];
         let newArr3 = [];
@@ -252,9 +270,20 @@ export default function Home ({route, navigation}) {
           );
     }
 
+    React.useLayoutEffect(() => {
+        navigation.setOptions({
+          headerRight: () => (
+            <Button onPress={() => guardar()} title="Guardar" />
+          ),
+        });
+      }, 
+      [navigation, suma1, suma2, suma3, suma4, suma5, suma6, suma7, suma8, 
+        suma9, suma10, number1, number2, number3, number4, number5, number6,
+        number7, number8, number9, number10, cuenta1, cuenta2, cuenta3, cuenta4,
+        cuenta5, cuenta6, cuenta7, cuenta8, cuenta9, cuenta10]);
+
     return(
         <ScrollView>
-            <Button title="Guardar" onPress={() => guardar()}/>
             <Test suma={suma1} sumaCambio={sumaCambio1} cuenta={cuenta1} onChangeCuenta={onChangeCuenta1} number={number1} onChangeNumber={onChangeNumber1}/>
             <Test suma={suma2} sumaCambio={sumaCambio2} cuenta={cuenta2} onChangeCuenta={onChangeCuenta2} number={number2} onChangeNumber={onChangeNumber2}/>
             <Test suma={suma3} sumaCambio={sumaCambio3} cuenta={cuenta3} onChangeCuenta={onChangeCuenta3} number={number3} onChangeNumber={onChangeNumber3}/>
