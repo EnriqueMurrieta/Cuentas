@@ -1,6 +1,5 @@
-import React, { Component, useEffect, useLayoutEffect } from 'react';
-import { StyleSheet, Text, View, SafeAreaView, ScrollView, StatusBar, Image, FlatList, TouchableOpacity, Button } from 'react-native';
-import { roundToNearestPixel } from 'react-native/Libraries/Utilities/PixelRatio';
+import React, { useEffect } from 'react';
+import { ScrollView, Button } from 'react-native';
 import Test from './Test';
 
 import * as firebase from 'firebase'
@@ -15,7 +14,7 @@ LogBox.ignoreLogs([
 ]);
 
 export default function Home ({route, navigation}) {
-    const {name, data, saving} = route.params;
+    const {name, data} = route.params;
 
     const [suma1, sumaCambio1] = React.useState();
     const [cuenta1, onChangeCuenta1] = React.useState("");
@@ -56,19 +55,6 @@ export default function Home ({route, navigation}) {
     const [suma10, sumaCambio10] = React.useState();
     const [cuenta10, onChangeCuenta10] = React.useState("");
     const [number10, onChangeNumber10] = React.useState([]);
-
-    /*useEffect(() => {
-        console.log("Benvenu")
-        navigation.setOptions({ headerRight: () => (
-            <Button
-              onPress={() => alert('This is a button!')}
-              title="Info"
-              color="#fff"
-            />
-        )})
-    }, [navigation]) */
-
-    
 
     const setArrToFirestore = (arr, newArr) => {
         arr.forEach((number, index) => {
@@ -159,10 +145,6 @@ export default function Home ({route, navigation}) {
         : null
     },[data])
 
-    const preGuardar = () => {
-        guardar();
-    }
-
     const guardar = () => {
         let newArr1 = [];
         let newArr2 = [];
@@ -250,25 +232,20 @@ export default function Home ({route, navigation}) {
             }
         }).then(() =>{
             alert("Proyecto guardado")
+            navigation.dispatch(
+                CommonActions.reset({
+                  index: 1,
+                  routes: [
+                    { name: 'Lobby' },
+                    {
+                      name: 'HomeTest'
+                    },
+                  ],
+                })
+              );
         }).catch((error) =>{
             console.log("Error writing document: ", error);
         })
-        /*saving()
-        navigation.navigate('HomeTest')*/
-        /*route.params.saving();*/
-        /*navigation.navigate.goBack();*/
-        /*navigation.navigate('HomeTest')*/
-        navigation.dispatch(
-            CommonActions.reset({
-              index: 1,
-              routes: [
-                { name: 'Lobby' },
-                {
-                  name: 'HomeTest'
-                },
-              ],
-            })
-          );
     }
 
     React.useLayoutEffect(() => {
@@ -298,16 +275,3 @@ export default function Home ({route, navigation}) {
         </ScrollView>
     );
 }
-
-/*
-<Test/>
-            <Test/>
-            <Test/>
-            <Test/>
-            <Test/>
-            <Test/>
-            <Test/>
-            <Test/>
-            <Test/>
-
-*/

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, SafeAreaView, ScrollView, StatusBar, Image, TextInput, TouchableOpacity, Button } from 'react-native';
+import { StyleSheet, Text, View, SafeAreaView, ScrollView, Image, TextInput, TouchableOpacity, Button } from 'react-native';
 import { FAB } from 'react-native-elements';
 
 import * as firebase from 'firebase'
@@ -15,48 +15,11 @@ export default class Home extends Component {
             name: "",
             show: false,
             data: [],
-            saved: false,
             userPhoto: ""
-        },
-        this.componentUpdate = this.componentUpdate.bind(this)
-        /*this.updateComponent = this.updateComponent.bind(this)*/
+        }
     }
-/*
-    useEffect(() => {
-        let alele = firebase.auth().currentUser
-        console.log(alele)
-    }, []);*/
-
-    componentDidUpdate(prevProps, prevState){
-        //this.props.route.params?.saved
-        /*if (this.state.saved == prevState.saved){
-            null
-        } else {
-            this.setState({saved:!this.state.saved})
-        }*/
-        //this.props.route.params.saved ? console.log(this.props.route.params.saved) : null
-    }
-
-    
 
     componentDidMount() {
-        /*this.props.navigation.addListener(
-            'didFocus',
-            payload => {
-                console.log("payload")
-                this.forceUpdate();
-            }
-        );*/
-        /*const didBlurSub = this.props.navigation.addListener(
-            'willBlur',
-            payload => {
-                this.setState({saved:!this.state.saved})
-            }
-        )*/
-        /*const {navigation} = this.props;
-        navigation.addListener ('willFocus', () => {
-            // run function that updates the data on entering the screen
-        }); */
         let user = firebase.auth().currentUser;
         this.props.navigation.setOptions({ title: user.displayName })
         console.log(user.uid);
@@ -72,25 +35,8 @@ export default class Home extends Component {
                 let info = []
                 querySnapshot.forEach((doc) => {
                     info.push(doc.data())
-                    /*console.log(doc.data())*/
-                    
-                    /*info[index] = doc.data()*/
-                    /*console.log(info[index])*/
                 })
-                /*console.log(info)
-                console.log(info[1])*/
                 this.setState({data:info, show:true, userPhoto: user.photoURL})
-                /*console.log(info)
-                info.forEach(item =>{
-                    console.log(item)
-                })
-                this.setState({informacion: info})*/
-                /*this.setState( (state) => {
-                    const informacion = info.map(item => item)
-                    return{
-                        informacion
-                    } 
-                })*/
             } else {
                 this.setState({userPhoto: user.photoURL})
             }
@@ -102,38 +48,7 @@ export default class Home extends Component {
         });
     }
 
-    updateComponent() {
-        this.forceUpdate();
-    }
-
-    componentUpdate() {
-        console.log("updating... ?")
-        this.setState({saved:!this.state.saved})
-    }
-
     render(){
-
-        firebaseTest = () => {
-            const db = firebase.firestore();
-            db.collection("users").doc(firebase.auth().currentUser.uid).collection("projects").get().then((querySnapshot) => {
-                if (!querySnapshot.empty){
-                    querySnapshot.forEach((doc) => {
-                        console.log(doc.data().name)
-                    })
-                } else {
-                    console.log("No projects")
-                }
-            })
-        }
-
-        firebaseRender = () => {
-            const db = firebase.firestore();
-            db.collection("users").doc(firebase.auth().currentUser.uid).collection("projects").get().then((querySnapshot) => {
-                querySnapshot.forEach((doc) => {
-                    return <Text>{doc.data().name}</Text>
-                })
-            })
-        }
 
         logout = () => {
             firebase.auth().signOut().then(() => {
@@ -157,30 +72,17 @@ export default class Home extends Component {
         }
 
         navegar = () => {
-            this.props.navigation.navigate('NewT', {name:this.state.name, saving: this.componentUpdate})
-        }
-
-        
-        
-        checkUpdate = () => {
-            console.log(this.state.saved)
+            this.props.navigation.navigate('NewT', {name:this.state.name})
         }
 
         checkFirebase = (nombre) => {
-            console.log("Hey dude")
             this.state.data.map(project => {
                 project.name == nombre ? (
-                    this.props.navigation.navigate('NewT', {name:nombre, data:project, saving: this.componentUpdate}) 
+                    this.props.navigation.navigate('NewT', {name:nombre, data:project}) 
                 ) : null
             })
             
         }
-
-        
-/*
-        history.listen((location, action) => {
-            console.log(location, action);
-        })*/
 
         return(
             <SafeAreaView style={styles.container}>

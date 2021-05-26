@@ -1,25 +1,9 @@
 import React from 'react';
-import { StyleSheet, Text, View, SafeAreaView, ScrollView, StatusBar, Image, FlatList, TouchableOpacity, Button, TextInput } from 'react-native';
-import { onChange } from 'react-native-reanimated';
-/*
-let sum = 0;
-let dato = [];
-*/
-
-
+import { StyleSheet, Text, View, SafeAreaView, ScrollView, TextInput } from 'react-native';
 
 export default function Test({suma, sumaCambio, cuenta, onChangeCuenta, number, onChangeNumber}) {
-    
-    /*const [number, onChangeNumber] = React.useState([]);*/
-    /*const [text, onChangeText] = React.useState("");*/
-    /*const [total, onTotalChange] = React.useState();*/
 
-/*
-INSIDE ADDNUMBER CALL THE FUNCTION THAT SUMS THE ENTIRE STATE ARRAY
-*/ 
     const totalSum = (newArr) => {
-        /*sum = newArr[0]
-        console.log(sum)*/
         let temp = 0
         parseInt(temp)
         let newSum = 0
@@ -37,37 +21,13 @@ INSIDE ADDNUMBER CALL THE FUNCTION THAT SUMS THE ENTIRE STATE ARRAY
                     )
             }
         })
-        /*
-        onTotalChange(temp)
-        */
        sumaCambio(temp)
-
-        /*
-        sum = parseInt(temp)
-        console.log(parseInt(sum))
-        */
-        /*const resultado = newArr.reduce((acc, el) => acc + el, 0)
-        console.log(resultado)*/
-        /*const reducer = (accumulator, currentValue) => accumulator + currentValue;
-        newArr.*/
     }
 
     const addNumber = (entry, id) => {
         let newArr = [...number];
         newArr[id] = entry
-        /*console.log(newArr[id])*/
         onChangeNumber(newArr)
-        /*const send = "$ " + entry
-        {newArr[id] == undefined ? (
-                newArr[id] = send,
-                dato[id] = entry, 
-                onChangeNumber(newArr) 
-            ) : (
-                    newArr[id] = entry,
-                    dato[id] = entry, 
-                    onChangeNumber(newArr) 
-                )
-        }*/
         totalSum(newArr);
     }
     return(
@@ -182,7 +142,6 @@ const styles = StyleSheet.create({
     container: {
       flex: 1,
       backgroundColor: '#fff',
-      /*alignItems: 'center',*/
       justifyContent: 'center',
     },
     total: {
@@ -210,14 +169,12 @@ const styles = StyleSheet.create({
     renglonContainer: {
         flexDirection: 'row',
         flexWrap: 'wrap',
-        /*justifyContent: 'space-between',*/
         alignItems: 'flex-start',
         marginLeft: 5
     },
     renglonContainerTot: {
         flexDirection: 'row',
         flexWrap: 'wrap',
-        /*justifyContent: 'space-between',*/
         alignItems: 'flex-start',
         borderWidth: 2,
         marginLeft: 15,
@@ -228,7 +185,6 @@ const styles = StyleSheet.create({
     renglonContainerTotNeg: {
         flexDirection: 'row',
         flexWrap: 'wrap',
-        /*justifyContent: 'space-between',*/
         alignItems: 'flex-start',
         borderWidth: 2,
         marginLeft: 15,
@@ -245,9 +201,6 @@ const styles = StyleSheet.create({
         marginTop: 4,
         marginLeft: 4
     },
-    /*contained2: {
-        width: '90%'
-    },*/
     haber: {
         width: '50%',
         borderLeftWidth: 1

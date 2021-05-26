@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, SafeAreaView, ScrollView, StatusBar, Image, FlatList, TouchableOpacity, Button } from 'react-native';
-import Test from './Test';
+import { Text } from 'react-native';
 
 import firebase from 'firebase';
 
