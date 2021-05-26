@@ -4,13 +4,14 @@ import { ResponseType } from 'expo-auth-session';
 import * as Google from 'expo-auth-session/providers/google';
 import firebase from 'firebase';
 import { Button, View, Text, StyleSheet, Image } from 'react-native';
+import { SocialIcon } from 'react-native-elements';
 
 const useForceUpdate = () => {
   const [value, setValue] = useState(0); // integer state
   return () => setValue(value => value + 1); // update the state to force render
 }
 
-export default function Entry() {
+export default function Entry({navigation}) {
 
   const forceUpdate = useForceUpdate();
 
@@ -42,6 +43,15 @@ export default function Entry() {
       /*console.log(firebase.auth().currentUser)*/
     }
   }, [response]);
+
+  useEffect(() => {
+    navigation.setOptions({
+      title: "Cuentas...Bienvenido",
+      headerLeft: () => (
+        null
+      )
+  });
+  })
 
 /*
   let user = firebase.auth().currentUser;
@@ -75,22 +85,15 @@ export default function Entry() {
   firebase.auth().currentUser ? onChangeUser(firebase.auth().currentUser) : null ; */
 
   return (
-    <View>
-        <Button
-        disabled={!request}
-        title="Login"
-        onPress={() => {
+    <View style={styles.container}>
+        <SocialIcon
+          title='Iniciar sesión con Google'
+          button
+          type='google'
+          disabled={!request}
+          onPress={() => {
             promptAsync();
             }}
-        />
-        <Text>Hey, test...test</Text>
-        <Button
-          title="Test"
-          onPress={test}
-        />
-        <Button
-          title="Re render"
-          onPress={forceUpdate}
         />
     </View>
   );
@@ -100,6 +103,9 @@ const styles = StyleSheet.create({
   img: {
     width: 65,
     height: 65
+  },
+  container: {
+    marginTop: '50%'
   }
 })
 

@@ -164,7 +164,6 @@ export default function Home ({route, navigation}) {
     }
 
     const guardar = () => {
-        alert('This is a button!')
         let newArr1 = [];
         let newArr2 = [];
         let newArr3 = [];
@@ -249,6 +248,8 @@ export default function Home ({route, navigation}) {
                 cuenta: cuenta10,
                 number: newArr10
             }
+        }).then(() =>{
+            alert("Proyecto guardado")
         }).catch((error) =>{
             console.log("Error writing document: ", error);
         })

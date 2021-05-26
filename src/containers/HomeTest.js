@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, SafeAreaView, ScrollView, StatusBar, Image, TextInput, TouchableOpacity, Button } from 'react-native';
+import { FAB } from 'react-native-elements';
 
 import * as firebase from 'firebase'
 import 'firebase/firestore';
@@ -96,7 +97,7 @@ export default class Home extends Component {
         })
         this.props.navigation.setOptions({
             headerRight: () => (
-              <Button onPress={() => logout()} title="Log out" />
+              <Button onPress={() => logout()} title="Cerrar sesión" />
             ),
         });
     }
@@ -190,7 +191,7 @@ export default class Home extends Component {
                         : <Image style={styles.userImg} source={{uri: this.state.userPhoto}}/>
                         }
                         <TouchableOpacity>
-                            <Button style={styles.nuevoProyecto} title="Nuevo Proyecto" onPress={() => nuevoProyecto()}/>
+                            <FAB title="Nuevo Proyecto" size='small' color='blue' onPress={() => nuevoProyecto()}/>
                         </TouchableOpacity>
                         {this.state.project == true ?
                             <View style={styles.form}>
@@ -203,7 +204,7 @@ export default class Home extends Component {
                     </View>
                     {this.state.show ?
                         <View>
-                            <Text style={styles.subtitle}>Projects</Text> 
+                            <Text style={styles.subtitle}>Proyectos</Text> 
                             <View style={styles.projects}>
                                 {this.state.data.map((project) => {
                                     return(
@@ -216,7 +217,7 @@ export default class Home extends Component {
                             </View>
                         </View>
                     : 
-                        <Text style={styles.subtitle}>No Projects...</Text>
+                        <Text style={styles.subtitle}>No hay proyectos aún...</Text>
                     }
                 </ScrollView>
             </SafeAreaView>
